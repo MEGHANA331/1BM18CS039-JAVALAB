@@ -1,103 +1,139 @@
 import java.util.*;
-class Queue
+interface Queue
 {
-	int rear,front,size;
-	int arr[];
-	Queue()
+	void insert(int ele);
+	int delete();
+	void display();
+}
+class intqueue implements Queue
+{
+	int q[];
+	int r,f;
+	Scanner sc=new Scanner(System.in);
+	intqueue(int size)
 	{
-		rear=-1;
-		front=0;
+	 r=-1;f=0;
+	 q=new int[size];
 	}
-	Queue(int s)
+	public void insert(int ele)
 	{
-		rear=-1;
-		front=0;
-		size=s;
-		Scanner se=new Scanner(System.in);
-		arr=new int[size];
-	}
-	void insert(int element)
-	{
-		if(rear==size-1)
+		if(r==q.length-1)
 		{
-			System.out.println("Queue overflow");
-			return ;
+			System.out.println("overflow");
+			
+		}
+		q[++r]=ele;
+	}
+	public int delete()
+	{
+		if(f>r)
+		{		
+			System.out.println("underflow");
+			return -1;
+		}
+		int item=q[f];
+		f=f+1;
+		return item;
+	}
+	public void display()
+	{
+		if(f>r)
+		{		
+			System.out.println("underflow");
+		}	
+		System.out.println("contents of queue=");
+		for(int i=f;i<=r;i++)
+		{
+			System.out.println(q[i]);
+		}
+	}
+}
+class dynamicqueue implements Queue
+{
+	int q[];
+	int r,f;
+	Scanner sc=new Scanner(System.in);
+	dynamicqueue(int size)
+	{
+	 r=-1;f=0;
+	 q=new int[size];
+	}
+	public void insert(int ele)
+	{
+		if(r==q.length-1)
+		{
+			
+			int temp[]=new int[q.length*2];
+			for(int i=0;i<q.length;i++)
+				temp[i]=q[i];
+			q=temp;
+			q[++r]=ele;
 		}
 		else
-		{
-			rear=rear+1;
-			arr[rear]=element;
-		}
+		q[++r]=ele;
 	}
-	int del()
+	public int delete()
 	{
-		if(front>rear)
-		{
-			System.out.println("Queue underflow");
-			return -9999 ;
+		if(f>r)
+		{		
+			System.out.println("underflow");
+			return -1;
 		}
-		else{
-		int item;
-		item=arr[front];
-		front = front+1;
+		int item=q[f];
+		f=f+1;
 		return item;
-		}
 	}
-	void display()
+	public void display()
 	{
-		if(front>rear)
+		if(f>r)
+		{		
+			System.out.println("underflow");
+		}	
+		System.out.println("contents of queue=");
+		for(int i=f;i<=r;i++)
 		{
-			System.out.println("Queue is empty");
-		}
-		else{
-		int i;
-		System.out.println("Elements in queue are");
-		for(i=front;i<=rear;i++)
-		{
-			System.out.println(arr[i]+"  ");
-		}
-		
+			System.out.println(q[i]);
 		}
 	}
 }
-class Queue1
+class 	Queue_interface
 {
 	public static void main(String args[])
-{	
-	Scanner se=new Scanner(System.in);
-	System.out.println("Enter size");
-	int size=se.nextInt();
-	int option;
-	Queue q=new Queue(size);
-	do
 	{
-		System.out.println("1.Insert\n2.Delete\n3.Display\n4.Exit");
-		System.out.println("Enter option");
-		option=se.nextInt();
-		switch(option)
+		Scanner sc=new Scanner(System.in);
+		int e;
+		int item,i,n1,n2,size;
+		System.out.println("enter size=");
+		size=sc.nextInt();
+		Queue s=new intqueue(size);
+		System.out.println("enter no of ele to be inserted in int queue=");
+		n1=sc.nextInt();
+		System.out.println("enter element in int queue=");
+		for( i=0;i<n1;i++)
 		{
-			case 1: System.out.println("Enter no of elements to be inserted");
-				int n=se.nextInt();
-				int i;
-				if(n>size)
-					System.out.println("Queue overflow");
-				else{
-				for(i=0;i<n;i++)
-				{	int s=se.nextInt();
-					q.insert(s);
-				}
-				}
-				break;
-			case 2: int e=q.del();
-				System.out.println("The del element is:  "+e);
-				break;
-			case 3: q.display();
-				break;
-			case 4: System.out.println("Invalid input");
+		 item=sc.nextInt();
+		s.insert(item);
 		}
-	}while(option !=4);
+		s.display();
+		 e=s.delete();
+		System.out.println("deleted ele in int queue="+e);
+		s.display();
+
+
+		Queue d=new dynamicqueue(size);
+		System.out.println("enter no of ele to be inserted in dynamic queue=");
+		n2=sc.nextInt();
+		System.out.println("enter element in dynamic queue=");
+		for( i=0;i<n2;i++)
+		{
+		 item=sc.nextInt();
+		d.insert(item);
+		}
+		d.display();
+		 e=d.delete();
+		System.out.println("deleted ele in dynamic queue="+e);
+		d.display();
+		
+	}
 }
-}
-				
-					
-					
+		
