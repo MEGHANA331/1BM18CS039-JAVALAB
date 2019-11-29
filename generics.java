@@ -27,7 +27,7 @@ class Generics
 {
 	public static void main(String args[])
 {
-	Gen<Integer,String> obj = new Gen<Integer,String>(25,"Akanksha");
+	Gen<Integer,String> obj = new Gen<Integer,String>(10,"Hello world");
 	obj.showtype();
 	int v = obj.getob();
 	System.out.println("Value of type T is:   "+ v);
